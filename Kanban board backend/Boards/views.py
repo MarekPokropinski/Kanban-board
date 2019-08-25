@@ -9,6 +9,10 @@ class BoardView(generics.ListCreateAPIView):
     queryset = Board.objects.all()
     serializer_class = BoardSerializer
 
+class BoardDetailsView(generics.RetrieveDestroyAPIView):
+    queryset = Board.objects.all()
+    serializer_class = BoardDetailsSerializer
+
 class NoteView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Note.objects.all()
     serializer_class = NoteSerializer
@@ -16,3 +20,4 @@ class NoteView(generics.RetrieveUpdateDestroyAPIView):
 class ListView(generics.RetrieveUpdateDestroyAPIView):
     queryset = List.objects.all()
     serializer_class = ListSerializer
+
