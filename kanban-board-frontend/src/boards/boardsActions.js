@@ -6,3 +6,15 @@ export const getBoards = () => ({
     },
   },
 })
+export const addBoard = title => ({
+  type: 'ADD_BOARD',
+  payload: {
+    request: {
+      url: '/boards/',
+      method: 'post',
+      data: {
+        title: title,
+      },
+    },
+  },
+})

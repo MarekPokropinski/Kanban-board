@@ -1,0 +1,103 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.boards {
+  width: 90vw;
+  min-height: 50vh;
+  background-color: rgb(120, 252, 142);
+  margin: 20px auto;
+  padding: 5px;
+  display: flex;
+  flex-wrap: wrap;
+  align-content: flex-start;
+  border-radius: 3px;
+  /* justify-content: space-around; */
+}
+
+.board {
+  /* min-width: 50px;
+  max-width: 200px; */
+  width: 150px;
+  height: 40px;
+  padding: 5px;
+  margin: 5px 5px;
+  border-radius: 3px;
+  background-color: rgb(23, 199, 52);
+  float: top;
+  position: sticky;
+  cursor: pointer;
+  overflow: hidden;
+}
+.add-new {
+  background-color: rgb(16, 168, 41);
+}
+
+.board:hover {
+  background-color: rgb(24, 255, 63);
+}
+
+.header {
+  font-size: 3em;
+  text-align: center;
+}
+
+/* .add-form-container {
+  animation: fade-in 1s;
+} */
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 0.5;
+  }
+}
+
+.add-form-overlay {
+  background-color: black;
+  width: 100vw;
+  height: 100vh;
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0.5;
+  animation: fade-in 1s;
+}
+.add-form {
+  position: absolute;
+  top: 50vh;
+  left: 50vw;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  padding: 5px;
+  border-radius: 2px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: inherit;
+  padding: 20px;
+  /* margin: 20px auto; */
+}
+.add-form input {
+  width: 100%;
+  padding: 10px;
+}
+.add-form p {
+  margin: 10px;
+}
+.add-form button {
+  width: 50px;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  background: #00cc77;
+  font-size: 16px;
+  color: #fff;
+  cursor: pointer;
+  margin: 10px;
+}

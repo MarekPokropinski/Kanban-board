@@ -11,10 +11,14 @@ class Board extends React.Component {
   }
 
   render() {
-    const { board } = this.props
+    const { board, error } = this.props
     if (!board) {
       return <div>loading</div>
     }
+    if (error) {
+      return <div>Failed to fetch the data</div>
+    }
+    console.log(board)
 
     return <div>{board.title}</div>
   }
