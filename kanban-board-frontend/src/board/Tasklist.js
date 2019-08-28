@@ -3,7 +3,7 @@ import Task from './Task'
 import './Board.css'
 
 export default function Tasklist(props) {
-  const { title, tasks, addNote, className, updateTask } = props
+  const { title, tasks, addTask, className, updateTask } = props
   return (
     <div className={className}>
       <div className="list-title">{title}</div>
@@ -12,8 +12,8 @@ export default function Tasklist(props) {
           <Task className="list-item" updateTask={updateTask} key={task.id} task={task} />
         ))}
       </div>
-      <button onClick={() => addNote({ title: 'test', description: '' })} type="button">
-        Add new note
+      <button onClick={() => addTask({ title: 'test' })} type="button">
+        Add new task
       </button>
     </div>
   )

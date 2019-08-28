@@ -7,22 +7,22 @@ export const getBoard = id => ({
   },
 })
 
-export const createNote = (listId, note) => ({
-  type: 'CREATE_NOTE',
+export const createTask = (listId, task) => ({
+  type: 'CREATE_TASK',
   payload: {
     request: {
-      url: `/boards/notes/`,
+      url: `/boards/tasks/`,
       method: 'POST',
-      data: { ...note, list_fk: listId },
+      data: { ...task, list_fk: listId },
     },
   },
 })
 
-export const updateNote = task => ({
-  type: 'UPDATE_NOTE',
+export const updateTask = task => ({
+  type: 'UPDATE_TASK',
   payload: {
     request: {
-      url: `/boards/notes/${task.id}`,
+      url: `/boards/tasks/${task.id}`,
       method: 'PUT',
       data: task,
     },

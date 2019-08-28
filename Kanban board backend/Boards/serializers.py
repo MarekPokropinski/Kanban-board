@@ -1,23 +1,23 @@
 from rest_framework import serializers
-from .models import Board, List, Note
+from .models import Board, List, Task
 
 
-class NoteSerializer(serializers.ModelSerializer):
+class TaskSerializer(serializers.ModelSerializer):
     class Meta:
-        fields = ('id', 'title', 'description')
-        model = Note
+        fields = ('id', 'title')
+        model = Task
 
-class NoteWithListSerializer(serializers.ModelSerializer):
+class TaskWithListSerializer(serializers.ModelSerializer):
     # list_id = serializers.PrimaryKeyRelatedField(queryset)
     class Meta:
-        fields = ('id', 'title', 'description', 'list_fk')
-        model = Note
+        fields = ('id', 'title', 'list_fk')
+        model = Task
 
 class ListSerializer(serializers.ModelSerializer):
-    notes = NoteSerializer(read_only=True, many=True)
+    tasks = TaskSerializer(read_only=True, many=True)
 
     class Meta:
-        fields = ('id', 'title', 'notes')
+        fields = ('id', 'title', 'tasks')
         model = List
 
 

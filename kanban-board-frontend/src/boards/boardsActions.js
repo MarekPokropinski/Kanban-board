@@ -13,7 +13,7 @@ export const addBoard = title => ({
       url: '/boards/',
       method: 'post',
       data: {
-        title: title,
+        title,
       },
     },
   },

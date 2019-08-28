@@ -11,8 +11,7 @@ class List(models.Model):
         Board, related_name='lists', on_delete=models.CASCADE)
 
 
-class Note(models.Model):
+class Task(models.Model):
     title = models.CharField(max_length=30)
-    description = models.TextField(blank=True)
     list_fk = models.ForeignKey(
-        List, related_name='notes', on_delete=models.CASCADE)
+        List, related_name='tasks', on_delete=models.CASCADE)

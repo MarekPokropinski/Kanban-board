@@ -1,6 +1,6 @@
 from django.contrib import admin
-from .models import Board, List, Note
+from .models import Board, List, Task
 
 admin.site.register(Board)
 admin.site.register(List)
-admin.site.register(Note)
+admin.site.register(Task)

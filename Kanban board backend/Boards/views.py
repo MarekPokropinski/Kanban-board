@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from rest_framework import generics
-from .models import Board, List, Note
-from .serializers import BoardSerializer, BoardDetailsSerializer, ListSerializer, NoteSerializer, NoteWithListSerializer
+from .models import Board, List, Task
+from .serializers import BoardSerializer, BoardDetailsSerializer, ListSerializer, TaskSerializer, TaskWithListSerializer
 
 
 class BoardView(generics.ListCreateAPIView):
@@ -14,14 +14,14 @@ class BoardDetailsView(generics.RetrieveDestroyAPIView):
     serializer_class = BoardDetailsSerializer
 
 
-class NoteView(generics.RetrieveUpdateDestroyAPIView):
-    queryset = Note.objects.all()
-    serializer_class = NoteSerializer
+class TaskView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Task.objects.all()
+    serializer_class = TaskSerializer
 
 
-class CreateNoteView(generics.CreateAPIView):
-    queryset = Note.objects.all()
-    serializer_class = NoteWithListSerializer
+class CreateTaskView(generics.CreateAPIView):
+    queryset = Task.objects.all()
+    serializer_class = TaskWithListSerializer
 
 
 class ListView(generics.RetrieveUpdateDestroyAPIView):

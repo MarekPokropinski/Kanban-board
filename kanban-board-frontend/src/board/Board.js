@@ -20,14 +20,14 @@ class Board extends React.Component {
     getBoard(match.params.id)
   }
 
-  handleAddNote(listId, note) {
-    const { createNote } = this.props
-    createNote(listId, note).then(this.refresh)
+  handleAddTask(listId, task) {
+    const { createTask } = this.props
+    createTask(listId, task).then(this.refresh)
   }
 
   handleUpdateTask(task) {
-    const { updateNote } = this.props
-    updateNote(task).then(this.refresh)
+    const { updateTask } = this.props
+    updateTask(task).then(this.refresh)
   }
 
   render() {
@@ -47,8 +47,8 @@ class Board extends React.Component {
             <Tasklist
               className="list"
               title={list.title}
-              tasks={list.notes}
-              addNote={note => this.handleAddNote(list.id, note)}
+              tasks={list.tasks}
+              addTask={task => this.handleAddTask(list.id, task)}
               key={list.id}
               updateTask={task => this.handleUpdateTask(task)}
             />

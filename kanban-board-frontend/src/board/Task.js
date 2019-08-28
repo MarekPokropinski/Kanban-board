@@ -35,7 +35,7 @@ export default class Task extends React.Component {
     const { task, updateTask } = this.props
     if (!this.inputRef.current.contains(event.target)) {
       if (editing) {
-        // Note is unfocused
+        // Task is unfocused
         this.setState({ editing: false })
         if (task.title !== value) {
           // if value changed, send request to server
