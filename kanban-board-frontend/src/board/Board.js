@@ -6,6 +6,11 @@ import Tasklist from './Tasklist'
 import './Board.css'
 
 class Board extends React.Component {
+  constructor() {
+    super()
+    this.refresh = this.refresh.bind(this)
+  }
+
   componentDidMount() {
     this.refresh()
   }
@@ -17,7 +22,12 @@ class Board extends React.Component {
 
   handleAddNote(listId, note) {
     const { createNote } = this.props
-    createNote(listId, note).then(this.refresh.bind(this))
+    createNote(listId, note).then(this.refresh)
+  }
+
+  handleUpdateTask(task) {
+    const { updateNote } = this.props
+    updateNote(task).then(this.refresh)
   }
 
   render() {
@@ -40,6 +50,7 @@ class Board extends React.Component {
               tasks={list.notes}
               addNote={note => this.handleAddNote(list.id, note)}
               key={list.id}
+              updateTask={task => this.handleUpdateTask(task)}
             />
           ))}
         </div>

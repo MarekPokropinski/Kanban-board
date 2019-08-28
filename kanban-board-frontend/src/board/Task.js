@@ -6,10 +6,10 @@ import './Board.css'
 export default class Task extends React.Component {
   constructor(props) {
     super(props)
-    const { title } = this.props
+    const { task } = this.props
     this.state = {
       editing: false,
-      value: title,
+      value: task.title,
     }
     this.inputRef = React.createRef()
     this.handleOnClick = this.handleOnClick.bind(this)
@@ -25,38 +25,41 @@ export default class Task extends React.Component {
   }
 
   handleOnClick() {
-    this.setState({ editing: true })
+    const { task } = this.props
+    this.setState({ editing: true, value: task.title })
     this.inputRef.current.focus()
   }
 
   handleClickOutside(event) {
+    const { editing, value } = this.state
+    const { task, updateTask } = this.props
     if (!this.inputRef.current.contains(event.target)) {
-      this.setState({ editing: false })
+      if (editing) {
+        // Note is unfocused
+        this.setState({ editing: false })
+        if (task.title !== value) {
+          // if value changed, send request to server
+          updateTask({ ...task, title: value })
+          //   this.setState({ oldValue: value })
+        }
+      }
     }
   }
 
   render() {
-    const { className } = this.props
+    const { className, task } = this.props
     const { editing, value } = this.state
     return (
       <div className={className}>
-        {/* {editing ? (
-          <input
-            ref={this.inputRef}
-            value={value}
-            onChange={event => this.setState({ value: event.target.value })}
-          />
-        ) : (
-          <div>{value}</div>
-        )} */}
         <input
+          className="list-input"
           ref={this.inputRef}
           value={value}
           onChange={event => this.setState({ value: event.target.value })}
           hidden={!editing}
         />
         <div role="button" onClick={this.handleOnClick} hidden={editing}>
-          {value}
+          {task.title}
         </div>
       </div>
     )

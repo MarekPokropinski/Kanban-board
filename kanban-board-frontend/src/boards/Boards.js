@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/control-has-associated-label */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
 import React from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
@@ -7,8 +9,13 @@ import AddBoardForm from './AddBoardForm'
 import './Boards.css'
 
 class Boards extends React.Component {
-  state = {
-    showForm: false,
+  constructor() {
+    super()
+    this.state = {
+      showForm: false,
+    }
+    this.handleAddBoard = this.handleAddBoard.bind(this)
+    this.handleBoardClick = this.handleBoardClick.bind(this)
   }
 
   componentDidMount() {
@@ -21,7 +28,8 @@ class Boards extends React.Component {
   }
 
   handleBoardClick(id) {
-    this.props.history.push('/' + id)
+    const { history } = this.props
+    history.push(`/${id}`)
   }
 
   handleAddBoard(title) {
@@ -33,14 +41,14 @@ class Boards extends React.Component {
   }
 
   render() {
-    let { boards, error } = this.props
+    const { boards, error } = this.props
     if (error) {
       return <div>Failed to fetch the data</div>
     }
     if (!boards) {
       return <div>Fetching data</div>
     }
-
+    const { showForm } = this.state
     return (
       <div>
         <header className="header">Boards</header>
@@ -62,15 +70,17 @@ class Boards extends React.Component {
             className="board add-new"
           />
         </div>
-        {this.state.showForm ? (
+        {showForm ? (
           <div className="add-form-container">
             <div
+              role="button"
+              tabIndex={0}
               className="add-form-overlay"
               onClick={() => {
                 this.setState({ showForm: false })
               }}
             />
-            <AddBoardForm onSubmit={this.handleAddBoard.bind(this)} className="add-form" />
+            <AddBoardForm onSubmit={this.handleAddBoard} className="add-form" />
           </div>
         ) : null}
       </div>

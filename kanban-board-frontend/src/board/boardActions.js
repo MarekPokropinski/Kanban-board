@@ -17,3 +17,14 @@ export const createNote = (listId, note) => ({
     },
   },
 })
+
+export const updateNote = task => ({
+  type: 'UPDATE_NOTE',
+  payload: {
+    request: {
+      url: `/boards/notes/${task.id}`,
+      method: 'PUT',
+      data: task,
+    },
+  },
+})

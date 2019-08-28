@@ -1,23 +1,30 @@
 import React from 'react'
 
-export default class extends React.Component {
-  state = {
-    title: '',
+export default class AddBoardForm extends React.Component {
+  constructor() {
+    super()
+    this.state = {
+      title: '',
+    }
   }
+
   render() {
-    const { ...divprops } = this.props
+    const { className, onSubmit } = this.props
+    const { title } = this.state
     return (
-      <div {...divprops}>
+      <div className={className}>
         <div>
           <p>New board title:</p>
           <input
             type="text"
-            value={this.state.title}
+            value={title}
             onChange={event => this.setState({ title: event.target.value })}
           />
         </div>
         <div>
-          <button onClick={() => this.props.onSubmit(this.state.title)}>add</button>
+          <button type="button" onClick={() => onSubmit(title)}>
+            add
+          </button>
         </div>
       </div>
     )
