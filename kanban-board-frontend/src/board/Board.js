@@ -2,12 +2,22 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import * as actionCreators from './boardActions'
+import Tasklist from './Tasklist'
+import './Board.css'
 
 class Board extends React.Component {
   componentDidMount() {
-    const { getBoard, match } = this.props
+    this.refresh()
+  }
 
+  refresh() {
+    const { getBoard, match } = this.props
     getBoard(match.params.id)
+  }
+
+  handleAddNote(listId, note) {
+    const { createNote } = this.props
+    createNote(listId, note).then(this.refresh.bind(this))
   }
 
   render() {
@@ -18,9 +28,23 @@ class Board extends React.Component {
     if (error) {
       return <div>Failed to fetch the data</div>
     }
-    console.log(board)
 
-    return <div>{board.title}</div>
+    return (
+      <div>
+        {board.title}
+        <div className="container">
+          {board.lists.map(list => (
+            <Tasklist
+              className="list"
+              title={list.title}
+              tasks={list.notes}
+              addNote={note => this.handleAddNote(list.id, note)}
+              key={list.id}
+            />
+          ))}
+        </div>
+      </div>
+    )
   }
 }
 

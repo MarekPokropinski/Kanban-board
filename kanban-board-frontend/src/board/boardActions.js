@@ -6,3 +6,14 @@ export const getBoard = id => ({
     },
   },
 })
+
+export const createNote = (listId, note) => ({
+  type: 'CREATE_NOTE',
+  payload: {
+    request: {
+      url: `/boards/notes/`,
+      method: 'POST',
+      data: { ...note, list_fk: listId },
+    },
+  },
+})

@@ -7,6 +7,11 @@ class NoteSerializer(serializers.ModelSerializer):
         fields = ('id', 'title', 'description')
         model = Note
 
+class NoteWithListSerializer(serializers.ModelSerializer):
+    # list_id = serializers.PrimaryKeyRelatedField(queryset)
+    class Meta:
+        fields = ('id', 'title', 'description', 'list_fk')
+        model = Note
 
 class ListSerializer(serializers.ModelSerializer):
     notes = NoteSerializer(read_only=True, many=True)
