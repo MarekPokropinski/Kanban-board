@@ -8,7 +8,6 @@ class TaskSerializer(serializers.ModelSerializer):
         model = Task
 
 class TaskWithListSerializer(serializers.ModelSerializer):
-    # list_id = serializers.PrimaryKeyRelatedField(queryset)
     class Meta:
         fields = ('id', 'title', 'list_fk')
         model = Task

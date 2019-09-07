@@ -30,6 +30,11 @@ class Board extends React.Component {
     updateTask(task).then(this.refresh)
   }
 
+  handleUpdateTasklist(tasklist) {
+    const { updateTasklist } = this.props
+    updateTasklist(tasklist).then(this.refresh)
+  }
+
   render() {
     const { board, error } = this.props
     if (!board) {
@@ -51,6 +56,7 @@ class Board extends React.Component {
               addTask={task => this.handleAddTask(list.id, task)}
               key={list.id}
               updateTask={task => this.handleUpdateTask(task)}
+              updateTitle={title => this.handleUpdateTasklist({ ...list, title })}
             />
           ))}
         </div>

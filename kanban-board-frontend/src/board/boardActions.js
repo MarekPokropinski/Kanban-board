@@ -28,3 +28,14 @@ export const updateTask = task => ({
     },
   },
 })
+
+export const updateTasklist = tasklist => ({
+  type: 'UPDATE_TASKLIST',
+  payload: {
+    request: {
+      url: `/boards/lists/${tasklist.id}`,
+      method: 'PUT',
+      data: tasklist,
+    },
+  },
+})
