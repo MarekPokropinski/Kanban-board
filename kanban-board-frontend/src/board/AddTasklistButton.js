@@ -28,6 +28,6 @@ export default class AddTasklistButton extends React.Component {
         </>
       )
     }
-    return <TasklistTitle focus updateTitle={this.handleCreateList} className="list-title" />
+    return <TasklistTitle isFocused updateTitle={this.handleCreateList} className="list-title" />
   }
 }

@@ -52,6 +52,11 @@ class Board extends React.Component {
     createTasklist({ title, board: board.id }).then(this.refresh)
   }
 
+  handleRemoveList(listId) {
+    const { deleteTasklist } = this.props
+    deleteTasklist(listId).then(this.refresh)
+  }
+
   render() {
     const { board, error } = this.props
     const { newTaskId } = this.state
@@ -78,6 +83,7 @@ class Board extends React.Component {
               updateTitle={title => this.handleUpdateTasklist({ ...list, title })}
               newTaskId={newTaskId}
               removeTask={this.handleRemoveTask}
+              removeList={() => this.handleRemoveList(list.id)}
             />
           ))}
           <div className="list">

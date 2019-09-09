@@ -4,10 +4,25 @@ import TasklistTitle from './TasklistTitle'
 import './Board.css'
 
 export default function Tasklist(props) {
-  const { title, tasks, addTask, className, updateTask, updateTitle, newTaskId, removeTask } = props
+  const {
+    title,
+    tasks,
+    addTask,
+    className,
+    updateTask,
+    updateTitle,
+    newTaskId,
+    removeTask,
+    removeList,
+  } = props
   return (
     <div className={className}>
-      <TasklistTitle className="list-title" updateTitle={updateTitle} value={title} />
+      <TasklistTitle
+        className="list-title"
+        updateTitle={updateTitle}
+        onRemove={removeList}
+        value={title}
+      />
       <div>
         {tasks.map(task => (
           <Task

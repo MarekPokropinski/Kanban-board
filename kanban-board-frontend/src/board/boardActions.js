@@ -60,3 +60,13 @@ export const updateTasklist = tasklist => ({
     },
   },
 })
+
+export const deleteTasklist = tasklistId => ({
+  type: 'DELETE_TASKLIST',
+  payload: {
+    request: {
+      url: `/boards/lists/${tasklistId}`,
+      method: 'DELETE',
+    },
+  },
+})

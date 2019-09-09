@@ -45,7 +45,7 @@ export default class Task extends React.Component {
       if (editing) {
         // Task is unfocused
         this.setState({ editing: false })
-        if (task.title !== value) {
+        if (task.title !== value || task.value === undefined) {
           // if value changed, send request to server
           updateTask({ ...task, title: value })
         }

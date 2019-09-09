@@ -24,7 +24,8 @@
     "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
     "react/prefer-stateless-function": [1],
     "import/prefer-default-export": [1],
-    "react/prop-types": [0]
+    "react/prop-types": [0],
+    "react/jsx-curly-newline": [0]
   },
   "settings": {
     "react": {
