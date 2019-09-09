@@ -28,3 +28,27 @@
 .list-input {
   width: 100%;
 }
+
+.list-textbox {
+  display: flex;
+  flex-direction: row;
+  position: relative;
+  padding: 0 12px 0 0;
+}
+
+.list-text {
+  visibility: inherit;
+}
+
+.list-removebutton {
+  position: absolute;
+  right: 1px;
+  font-weight: bold;
+  box-shadow: 0 0 1px rgba(0, 0, 0, 1);
+  cursor: pointer;
+}
+
+.list-removebutton:hover {
+  box-shadow: 0 0 1px rgb(88, 0, 0);
+  color: red;
+}

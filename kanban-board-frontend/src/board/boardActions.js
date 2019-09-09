@@ -29,6 +29,16 @@ export const updateTask = task => ({
   },
 })
 
+export const deleteTask = taskId => ({
+  type: 'DELETE_TASK',
+  payload: {
+    request: {
+      url: `/boards/tasks/${taskId}`,
+      method: 'DELETE',
+    },
+  },
+})
+
 export const updateTasklist = tasklist => ({
   type: 'UPDATE_TASKLIST',
   payload: {

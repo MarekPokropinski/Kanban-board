@@ -54,7 +54,7 @@ export default class Task extends React.Component {
   }
 
   render() {
-    const { className, task } = this.props
+    const { className, task, onRemove } = this.props
     const { editing, value } = this.state
 
     return (
@@ -68,8 +68,13 @@ export default class Task extends React.Component {
           type="text"
           autoFocus
         />
-        <div role="button" onClick={this.handleOnClick} hidden={editing}>
-          {task.title}
+        <div className="list-textbox">
+          <div className="list-text" role="button" onClick={this.handleOnClick} hidden={editing}>
+            {task.title}
+          </div>
+          <div role="button" className="list-removebutton" onClick={onRemove} hidden={editing}>
+            -
+          </div>
         </div>
       </div>
     )

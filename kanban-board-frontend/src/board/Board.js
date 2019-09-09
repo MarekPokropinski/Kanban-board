@@ -10,6 +10,7 @@ class Board extends React.Component {
     super()
     this.state = { newTaskId: null }
     this.refresh = this.refresh.bind(this)
+    this.handleRemoveTask = this.handleRemoveTask.bind(this)
   }
 
   componentDidMount() {
@@ -27,6 +28,11 @@ class Board extends React.Component {
       this.refresh()
       this.setState({ newTaskId: response.payload.data.id })
     })
+  }
+
+  handleRemoveTask(taskId) {
+    const { deleteTask } = this.props
+    deleteTask(taskId).then(this.refresh)
   }
 
   handleUpdateTask(task) {
@@ -64,6 +70,7 @@ class Board extends React.Component {
               updateTask={task => this.handleUpdateTask(task)}
               updateTitle={title => this.handleUpdateTasklist({ ...list, title })}
               newTaskId={newTaskId}
+              removeTask={this.handleRemoveTask}
             />
           ))}
         </div>
