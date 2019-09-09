@@ -19,6 +19,10 @@ class ListSerializer(serializers.ModelSerializer):
         fields = ('id', 'title', 'tasks')
         model = List
 
+class ListWithBoardSerializer(serializers.ModelSerializer):
+    class Meta:
+        fields = ('id', 'title', 'board')
+        model = List
 
 class BoardSerializer(serializers.ModelSerializer):
     class Meta:
