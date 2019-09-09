@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import * as actionCreators from './boardActions'
 import Tasklist from './Tasklist'
+import AddTasklistButton from './AddTasklistButton'
 import './Board.css'
 
 class Board extends React.Component {
@@ -11,6 +12,7 @@ class Board extends React.Component {
     this.state = { newTaskId: null }
     this.refresh = this.refresh.bind(this)
     this.handleRemoveTask = this.handleRemoveTask.bind(this)
+    this.handleCreateTasklist = this.handleCreateTasklist.bind(this)
   }
 
   componentDidMount() {
@@ -45,6 +47,11 @@ class Board extends React.Component {
     updateTasklist(tasklist).then(this.refresh)
   }
 
+  handleCreateTasklist(title) {
+    const { createTasklist, board } = this.props
+    createTasklist({ title, board: board.id }).then(this.refresh)
+  }
+
   render() {
     const { board, error } = this.props
     const { newTaskId } = this.state
@@ -73,6 +80,9 @@ class Board extends React.Component {
               removeTask={this.handleRemoveTask}
             />
           ))}
+          <div className="list">
+            <AddTasklistButton createList={this.handleCreateTasklist} />
+          </div>
         </div>
       </div>
     )

@@ -6,9 +6,9 @@ import './Board.css'
 export default class TasklistTitle extends React.Component {
   constructor(props) {
     super(props)
-    const { value } = props
+    const { value, focus } = props
     this.state = {
-      editing: false,
+      editing: focus,
       newValue: value,
     }
     this.inputRef = React.createRef()
@@ -37,7 +37,7 @@ export default class TasklistTitle extends React.Component {
       if (editing) {
         // Title is unfocused
         this.setState({ editing: false })
-        if (newValue !== value) {
+        if (newValue !== value || value === undefined) {
           // if value changed, send request to server
           updateTitle(newValue)
         }

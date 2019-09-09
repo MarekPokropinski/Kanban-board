@@ -43,7 +43,7 @@
 .list-removebutton {
   position: absolute;
   right: 1px;
-  font-weight: bold;
+  /* font-weight: bold; */
   box-shadow: 0 0 1px rgba(0, 0, 0, 1);
   cursor: pointer;
 }

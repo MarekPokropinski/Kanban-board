@@ -73,7 +73,7 @@ export default class Task extends React.Component {
             {task.title}
           </div>
           <div role="button" className="list-removebutton" onClick={onRemove} hidden={editing}>
-            -
+            x
           </div>
         </div>
       </div>
