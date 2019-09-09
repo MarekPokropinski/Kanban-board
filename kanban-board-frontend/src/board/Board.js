@@ -8,6 +8,7 @@ import './Board.css'
 class Board extends React.Component {
   constructor() {
     super()
+    this.state = { newTaskId: null }
     this.refresh = this.refresh.bind(this)
   }
 
@@ -22,7 +23,10 @@ class Board extends React.Component {
 
   handleAddTask(listId, task) {
     const { createTask } = this.props
-    createTask(listId, task).then(this.refresh)
+    createTask(listId, task).then(response => {
+      this.refresh()
+      this.setState({ newTaskId: response.payload.data.id })
+    })
   }
 
   handleUpdateTask(task) {
@@ -37,6 +41,8 @@ class Board extends React.Component {
 
   render() {
     const { board, error } = this.props
+    const { newTaskId } = this.state
+
     if (!board) {
       return <div>loading</div>
     }
@@ -57,6 +63,7 @@ class Board extends React.Component {
               key={list.id}
               updateTask={task => this.handleUpdateTask(task)}
               updateTitle={title => this.handleUpdateTasklist({ ...list, title })}
+              newTaskId={newTaskId}
             />
           ))}
         </div>

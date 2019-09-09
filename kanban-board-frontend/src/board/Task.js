@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/no-autofocus */
 /* eslint-disable jsx-a11y/interactive-supports-focus */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import React from 'react'
@@ -6,9 +7,9 @@ import './Board.css'
 export default class Task extends React.Component {
   constructor(props) {
     super(props)
-    const { task } = this.props
+    const { task, isFocused } = this.props
     this.state = {
-      editing: false,
+      editing: isFocused,
       value: task.title,
     }
     this.inputRef = React.createRef()
@@ -18,6 +19,13 @@ export default class Task extends React.Component {
 
   componentDidMount() {
     document.addEventListener('mousedown', this.handleClickOutside)
+  }
+
+  componentDidUpdate() {
+    const { editing } = this.state
+    if (editing) {
+      this.inputRef.current.focus()
+    }
   }
 
   componentWillUnmount() {
@@ -40,7 +48,6 @@ export default class Task extends React.Component {
         if (task.title !== value) {
           // if value changed, send request to server
           updateTask({ ...task, title: value })
-          //   this.setState({ oldValue: value })
         }
       }
     }
@@ -49,6 +56,7 @@ export default class Task extends React.Component {
   render() {
     const { className, task } = this.props
     const { editing, value } = this.state
+
     return (
       <div className={className}>
         <input
@@ -57,6 +65,8 @@ export default class Task extends React.Component {
           value={value}
           onChange={event => this.setState({ value: event.target.value })}
           hidden={!editing}
+          type="text"
+          autoFocus
         />
         <div role="button" onClick={this.handleOnClick} hidden={editing}>
           {task.title}
