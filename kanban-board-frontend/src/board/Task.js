@@ -1,7 +1,6 @@
 /* eslint-disable jsx-a11y/no-autofocus */
-/* eslint-disable jsx-a11y/interactive-supports-focus */
-/* eslint-disable jsx-a11y/click-events-have-key-events */
 import React from 'react'
+import autobind from 'class-autobind'
 import './Board.css'
 
 export default class Task extends React.Component {
@@ -13,8 +12,7 @@ export default class Task extends React.Component {
       value: task.title,
     }
     this.inputRef = React.createRef()
-    this.handleOnClick = this.handleOnClick.bind(this)
-    this.handleClickOutside = this.handleClickOutside.bind(this)
+    autobind(this)
   }
 
   componentDidMount() {

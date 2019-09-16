@@ -1,7 +1,11 @@
 import React from 'react'
 
-export default props => {
-  const { title, ...divprops } = props
+export default function BoardButton(props) {
+  const { title, onClick, className } = props
 
-  return <div {...divprops}>{title}</div>
+  return (
+    <div role="button" onClick={onClick} className={className}>
+      {title}
+    </div>
+  )
 }

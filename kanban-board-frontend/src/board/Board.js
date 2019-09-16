@@ -1,4 +1,5 @@
 import React from 'react'
+import autobind from 'class-autobind'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import * as actionCreators from './boardActions'
@@ -10,9 +11,7 @@ class Board extends React.Component {
   constructor() {
     super()
     this.state = { newTaskId: null }
-    this.refresh = this.refresh.bind(this)
-    this.handleRemoveTask = this.handleRemoveTask.bind(this)
-    this.handleCreateTasklist = this.handleCreateTasklist.bind(this)
+    autobind(this)
   }
 
   componentDidMount() {
@@ -79,11 +78,11 @@ class Board extends React.Component {
               tasks={list.tasks}
               addTask={task => this.handleAddTask(list.id, task)}
               key={list.id}
-              updateTask={task => this.handleUpdateTask(task)}
+              updateTask={this.handleUpdateTask}
               updateTitle={title => this.handleUpdateTasklist({ ...list, title })}
               newTaskId={newTaskId}
               removeTask={this.handleRemoveTask}
-              removeList={() => this.handleRemoveList(list.id)}
+              removeList={this.handleRemoveList}
             />
           ))}
           <div className="list">
