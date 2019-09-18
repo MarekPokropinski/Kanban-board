@@ -10,7 +10,7 @@ import './Board.css'
 class Board extends React.Component {
   constructor() {
     super()
-    this.state = { newTaskId: null }
+    this.state = { newTaskId: null, draggedList: null }
     autobind(this)
   }
 
@@ -56,9 +56,14 @@ class Board extends React.Component {
     deleteTasklist(listId).then(this.refresh)
   }
 
+  handleMoveList(listId, destination) {
+    const { moveTasklist } = this.props
+    moveTasklist(listId, destination).then(this.refresh)
+  }
+
   render() {
     const { board, error } = this.props
-    const { newTaskId } = this.state
+    const { newTaskId, draggedList } = this.state
 
     if (!board) {
       return <div>loading</div>
@@ -74,6 +79,7 @@ class Board extends React.Component {
           {board.lists.map(list => (
             <Tasklist
               className="list"
+              id={list.id}
               title={list.title}
               tasks={list.tasks}
               addTask={task => this.handleAddTask(list.id, task)}
@@ -82,10 +88,14 @@ class Board extends React.Component {
               updateTitle={title => this.handleUpdateTasklist({ ...list, title })}
               newTaskId={newTaskId}
               removeTask={this.handleRemoveTask}
-              removeList={this.handleRemoveList}
+              removeList={() => this.handleRemoveList(list.id)}
+              order={list.order}
+              moveList={this.handleMoveList}
+              onDrag={tasklist => this.setState({ draggedList: tasklist })}
+              draggedList={draggedList}
             />
           ))}
-          <div className="list">
+          <div className="list" style={{ order: 99 }}>
             <AddTasklistButton createList={this.handleCreateTasklist} />
           </div>
         </div>

@@ -7,22 +7,29 @@ class TaskSerializer(serializers.ModelSerializer):
         fields = ('id', 'title')
         model = Task
 
+
 class TaskWithListSerializer(serializers.ModelSerializer):
     class Meta:
         fields = ('id', 'title', 'list_fk')
         model = Task
 
+
 class ListSerializer(serializers.ModelSerializer):
     tasks = TaskSerializer(read_only=True, many=True)
 
     class Meta:
-        fields = ('id', 'title', 'tasks')
+        fields = ('id', 'title', 'tasks', 'order')
         model = List
+        extra_kwargs = {
+            'order': {'read_only': True}
+        }
+
 
 class ListWithBoardSerializer(serializers.ModelSerializer):
     class Meta:
-        fields = ('id', 'title', 'board')
+        fields = ('id', 'title', 'board', 'order')
         model = List
+
 
 class BoardSerializer(serializers.ModelSerializer):
     class Meta:
@@ -32,6 +39,12 @@ class BoardSerializer(serializers.ModelSerializer):
 
 class BoardDetailsSerializer(serializers.ModelSerializer):
     lists = ListSerializer(read_only=True, many=True)
+
     class Meta:
         fields = ('id', 'title', 'lists')
         model = Board
+
+
+class MoveListSerializer(serializers.Serializer):
+    id = serializers.IntegerField()
+    destination = serializers.IntegerField()

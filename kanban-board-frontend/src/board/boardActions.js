@@ -55,8 +55,19 @@ export const updateTasklist = tasklist => ({
   payload: {
     request: {
       url: `/boards/lists/${tasklist.id}`,
-      method: 'PUT',
+      method: 'PATCH',
       data: tasklist,
+    },
+  },
+})
+
+export const moveTasklist = (tasklistId, destination) => ({
+  type: 'MOVE_TASKLIST',
+  payload: {
+    request: {
+      url: '/boards/lists/move/',
+      method: 'PATCH',
+      data: { id: tasklistId, destination },
     },
   },
 })

@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import BoardView, TaskView, ListView, BoardDetailsView, CreateTaskView, CreateListView
+from .views import BoardView, TaskView, ListView, BoardDetailsView, CreateTaskView, CreateListView, MoveListView
 
 urlpatterns = [
     path('', BoardView.as_view()),
@@ -8,4 +8,5 @@ urlpatterns = [
     path('tasks/<int:pk>', TaskView.as_view()),
     path('lists/', CreateListView.as_view()),
     path('lists/<int:pk>', ListView.as_view()),
+    path('lists/move/', MoveListView.as_view()),
 ]
