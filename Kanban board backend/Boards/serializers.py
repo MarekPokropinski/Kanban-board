@@ -20,12 +20,15 @@ class ListSerializer(serializers.ModelSerializer):
     class Meta:
         fields = ('id', 'title', 'tasks', 'order')
         model = List
-        extra_kwargs = {
-            'order': {'read_only': True}
-        }
 
 
 class ListWithBoardSerializer(serializers.ModelSerializer):
+    class Meta:
+        fields = ('id', 'title', 'board')
+        model = List
+
+
+class CreateListSerializer(serializers.ModelSerializer):
     class Meta:
         fields = ('id', 'title', 'board', 'order')
         model = List

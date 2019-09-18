@@ -2,7 +2,7 @@ from django.shortcuts import render
 from rest_framework import generics, status
 from rest_framework.response import Response
 from .models import Board, List, Task
-from .serializers import BoardSerializer, BoardDetailsSerializer, ListSerializer, ListWithBoardSerializer, TaskSerializer, TaskWithListSerializer, MoveListSerializer
+from .serializers import *
 
 
 class BoardView(generics.ListCreateAPIView):
@@ -17,7 +17,7 @@ class BoardDetailsView(generics.RetrieveDestroyAPIView):
 
 class TaskView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Task.objects.all()
-    serializer_class = TaskSerializer
+    serializer_class = TaskWithListSerializer
 
 
 class CreateTaskView(generics.CreateAPIView):
@@ -27,14 +27,14 @@ class CreateTaskView(generics.CreateAPIView):
 
 class ListView(generics.RetrieveUpdateDestroyAPIView):
     queryset = List.objects.all()
-    serializer_class = ListSerializer
+    serializer_class = ListWithBoardSerializer
 
 
     def delete(self, request, **kwargs):
-        id = request.data['id']
+        id = kwargs['pk']
         tasklist = List.objects.get(pk=id)
         response = super().delete(request,**kwargs)
-        if response.status!=status.HTTP_200_OK:
+        if response.status_code!=status.HTTP_204_NO_CONTENT:
             return response
         pos = tasklist.order + 1
         board = Board.objects.get(id=tasklist.board.id)
@@ -115,7 +115,7 @@ class MoveListView(generics.GenericAPIView):
 
 class CreateListView(generics.CreateAPIView):
     queryset = List.objects.all()
-    serializer_class = ListWithBoardSerializer
+    serializer_class = CreateListSerializer
 
     def post(self, request):
         board = Board.objects.get(id=request.data['board'])
