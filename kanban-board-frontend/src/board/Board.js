@@ -10,7 +10,12 @@ import './Board.css'
 class Board extends React.Component {
   constructor() {
     super()
-    this.state = { newTaskId: null, draggedList: null }
+    this.state = {
+      displayRemoveBoardForm: false,
+      newTaskId: null,
+      draggedList: null,
+      draggedTask: null,
+    }
     autobind(this)
   }
 
@@ -61,9 +66,23 @@ class Board extends React.Component {
     moveTasklist(listId, destination).then(this.refresh)
   }
 
+  handleMoveTask(task, listId) {
+    const { updateTask } = this.props
+    const updatedTask = {
+      ...task,
+      list_fk: listId,
+    }
+    updateTask(updatedTask).then(this.refresh)
+  }
+
+  handleDeleteBoard() {
+    const { board, deleteBoard, history } = this.props
+    deleteBoard(board.id).then(() => history.push('/'))
+  }
+
   render() {
     const { board, error } = this.props
-    const { newTaskId, draggedList } = this.state
+    const { newTaskId, draggedList, draggedTask, displayRemoveBoardForm } = this.state
 
     if (!board) {
       return <div>loading</div>
@@ -71,10 +90,16 @@ class Board extends React.Component {
     if (error) {
       return <div>Failed to fetch the data</div>
     }
-
     return (
       <div>
         {board.title}
+        <button
+          onClick={() => this.setState({ displayRemoveBoardForm: true })}
+          type="button"
+          style={{ float: 'right' }}
+        >
+          remove board
+        </button>
         <div className="container">
           {board.lists.map(list => (
             <Tasklist
@@ -91,14 +116,48 @@ class Board extends React.Component {
               removeList={() => this.handleRemoveList(list.id)}
               order={list.order}
               moveList={this.handleMoveList}
-              onDrag={tasklist => this.setState({ draggedList: tasklist })}
+              moveTask={this.handleMoveTask}
+              onDragStart={(tasklist, task) =>
+                this.setState({ draggedList: tasklist, draggedTask: task })
+              }
+              onDragEnd={() => this.setState({ draggedList: null, draggedTask: null })}
               draggedList={draggedList}
+              draggedTask={draggedTask}
             />
           ))}
-          <div className="list" style={{ order: 99 }}>
+          <div className="list" style={{ order: board.lists.length }}>
             <AddTasklistButton createList={this.handleCreateTasklist} />
           </div>
         </div>
+        {displayRemoveBoardForm ? (
+          <div className="add-form-container">
+            <div
+              role="button"
+              tabIndex={0}
+              className="add-form-overlay"
+              onClick={() => {
+                this.setState({ displayRemoveBoardForm: false })
+              }}
+            />
+            <div className="add-form">
+              <div>
+                <p>Are you sure you want to remove this board</p>
+              </div>
+              <div>
+                <button className="remove-button" type="button" onClick={this.handleDeleteBoard}>
+                  remove
+                </button>
+                <button
+                  type="button"
+                  className="cancel-button"
+                  onClick={() => this.setState({ displayRemoveBoardForm: false })}
+                >
+                  cancel
+                </button>
+              </div>
+            </div>
+          </div>
+        ) : null}
       </div>
     )
   }

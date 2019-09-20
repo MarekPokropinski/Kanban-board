@@ -22,7 +22,7 @@ export default class AddBoardForm extends React.Component {
           />
         </div>
         <div>
-          <button type="button" onClick={() => onSubmit(title)}>
+          <button className="add-form-button" type="button" onClick={() => onSubmit(title)}>
             add
           </button>
         </div>

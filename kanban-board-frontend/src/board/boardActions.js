@@ -7,6 +7,16 @@ export const getBoard = id => ({
   },
 })
 
+export const deleteBoard = id => ({
+  type: 'DELETE_BOARD',
+  payload: {
+    request: {
+      url: `/boards/${id}`,
+      method: 'DELETE',
+    },
+  },
+})
+
 export const createTask = (listId, task) => ({
   type: 'CREATE_TASK',
   payload: {

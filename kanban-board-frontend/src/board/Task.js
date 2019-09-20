@@ -52,10 +52,15 @@ export default class Task extends React.Component {
   }
 
   render() {
-    const { className, task, onRemove, draggable } = this.props
+    const { className, task, onRemove, draggable, onDragStart, onDragEnd } = this.props
     const { editing, value } = this.state
     return (
-      <div className={className} draggable={draggable}>
+      <div
+        className={className}
+        draggable={draggable}
+        onDragStart={onDragStart}
+        onDragEnd={onDragEnd}
+      >
         <input
           className="list-input"
           ref={this.inputRef}
