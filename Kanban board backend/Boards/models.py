@@ -7,7 +7,7 @@ class Board(models.Model):
 
 class List(models.Model):
     title = models.CharField(max_length=30)
-    order = models.IntegerField(unique=True)
+    order = models.IntegerField(unique=False)
     board = models.ForeignKey(
         Board, related_name='lists', on_delete=models.CASCADE)
 

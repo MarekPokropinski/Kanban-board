@@ -33,7 +33,7 @@ export const updateTask = task => ({
   payload: {
     request: {
       url: `/boards/tasks/${task.id}`,
-      method: 'PUT',
+      method: 'PATCH',
       data: task,
     },
   },
